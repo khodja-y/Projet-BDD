@@ -1,10 +1,11 @@
+DROP TABLE reservation;
+DROP TABLE proposition;
+DROP TABLE recherche;
 DROP TABLE date_dim;
 DROP TABLE time_dim;
 DROP TABLE utilisateur_dim;
 DROP TABLE ville_dim;
-DROP TABLE reservation;
-DROP TABLE proposition;
-DROP TABLE recherche;
+
 
 CREATE TABLE date_dim (
 	id    NUMBER(5,0),
@@ -77,12 +78,12 @@ CREATE TABLE reservation (
 );
 
 CREATE TABLE proposition (
-	id_date       NUMBER(5,0) NOT NULL;
-	id_dateDep    NUMBER(5,0) NOT NULL;
-	id_heureDep   NUMBER(5,0) NOT NULL;
-	id_villeDep   NUMBER(5,0) NOT NULL;
-	id_villeArr   NUMBER(5,0) NOT NULL;
-	id_conducteur NUMBER(5,0) NOT NULL;
+	id_date       NUMBER(5,0) NOT NULL,
+	id_dateDep    NUMBER(5,0) NOT NULL,
+	id_heureDep   NUMBER(5,0) NOT NULL,
+	id_villeDep   NUMBER(5,0) NOT NULL,
+	id_villeArr   NUMBER(5,0) NOT NULL,
+	id_conducteur NUMBER(5,0) NOT NULL,
 	CONSTRAINT proposition_date_fk       FOREIGN KEY (id_date)       REFERENCES date_dim(id),
 	CONSTRAINT proposition_dateDep_fk    FOREIGN KEY (id_dateDep)    REFERENCES date_dim(id),
 	CONSTRAINT proposition_heureDep_fk   FOREIGN KEY (id_heureDep)   REFERENCES time_dim(id),
@@ -98,22 +99,22 @@ CREATE TABLE proposition (
 );
 
 CREATE TABLE recherche (
-	id_date        NUMBER(5,0) NOT NULL;
-	id_dateDep     NUMBER(5,0) NOT NULL;
-	id_heureDep    NUMBER(5,0) NOT NULL;
-	id_villeDep    NUMBER(5,0) NOT NULL;
-	id_villeArr    NUMBER(5,0) NOT NULL;
-	id_utilisateur NUMBER(5,0) NOT NULL;
-	CONSTRAINT proposition_date_fk        FOREIGN KEY (id_date)        REFERENCES date_dim(id),
-	CONSTRAINT proposition_dateDep_fk     FOREIGN KEY (id_dateDep)     REFERENCES date_dim(id),
-	CONSTRAINT proposition_heureDep_fk    FOREIGN KEY (id_heureDep)    REFERENCES time_dim(id),
-	CONSTRAINT proposition_villeDep_fk    FOREIGN KEY (id_villeDep)    REFERENCES ville_dim(id),
-	CONSTRAINT proposition_villeArr_fk    FOREIGN KEY (id_villeArr)    REFERENCES ville_dim(id),
-	CONSTRAINT proposition_utilisateur_fk FOREIGN KEY (id_utilisateur) REFERENCES utilisateur_dim(id),
-	CONSTRAINT proposition_fait_pk PRIMARY KEY (
+	id_date        NUMBER(5,0) NOT NULL,
+	id_dateDep     NUMBER(5,0) NOT NULL,
+	id_heureDep    NUMBER(5,0) NOT NULL,
+	id_villeDep    NUMBER(5,0) NOT NULL,
+	id_villeArr    NUMBER(5,0) NOT NULL,
+	id_utilisateur NUMBER(5,0) NOT NULL,
+	CONSTRAINT recherche_date_fk        FOREIGN KEY (id_date)        REFERENCES date_dim(id),
+	CONSTRAINT recherche_dateDep_fk     FOREIGN KEY (id_dateDep)     REFERENCES date_dim(id),
+	CONSTRAINT recherche_heureDep_fk    FOREIGN KEY (id_heureDep)    REFERENCES time_dim(id),
+	CONSTRAINT recherche_villeDep_fk    FOREIGN KEY (id_villeDep)    REFERENCES ville_dim(id),
+	CONSTRAINT recherche_villeArr_fk    FOREIGN KEY (id_villeArr)    REFERENCES ville_dim(id),
+	CONSTRAINT recherche_utilisateur_fk FOREIGN KEY (id_utilisateur) REFERENCES utilisateur_dim(id),
+	CONSTRAINT recherche_fait_pk PRIMARY KEY (
 		id_date,
 		id_villeDep,
 		id_villeArr,
-		id_conducteur,
+		id_utilisateur,
 		id_heureDep)
 );
