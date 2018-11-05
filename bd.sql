@@ -34,7 +34,7 @@ CREATE TABLE utilisateur_dim (
 	pseudo         VARCHAR2(10),
 	anneeNaissance CHAR(4),
 	sexe           CHAR(1),
-	statu          VARCHAR2(10),
+	statue         VARCHAR2(15),
 	niv_bavard     NUMBER(1,0),
 	niv_fumeur     NUMBER(1,0),
 	niv_animaux    NUMBER(1,0),
@@ -44,10 +44,11 @@ CREATE TABLE utilisateur_dim (
 
 CREATE TABLE ville_dim (
 	id          NUMBER(5,0),
-	nom         VARCHAR2(10),
-	population  NUMBER(7,0),
+	nom         VARCHAR2(20),
+	superficie  NUMBER(5,2),
+	population  NUMBER(8,0),
 	departement NUMBER(3,0),
-	region      VARCHAR2(10),
+	region      VARCHAR2(30),
 	CONSTRAINT ville_dimension_pk PRIMARY KEY (id)
 );
 
