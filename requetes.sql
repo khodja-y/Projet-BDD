@@ -26,3 +26,23 @@ WHERE 		utilisateur1.cadeau='LAVAGE'
 	AND	utilisateur1.id=proposition.id_conducteur
 	AND  	utilisateur2.id=proposition.id_conducteur;	
 
+--requête 2:
+-- Afficher le nombre de trajets réservés ayant le prix minimum en effectuant un group by sur la ville de départ et la ville de destination.
+select id_villeDep, id_villeArr, MIN(prix_place)
+    from reservation
+    group by id_villeDep,id_villeArr;
+    
+--requête 8:
+--Afficher le nombre de trajets réservés complets selon la ville de départ et ville d'arrivée
+select id_villeDep, id_villeArr, COUNT(num_trajet)
+from reservation
+where complet = '1'
+group by id_villeDep, id_villeArr;
+
+--requête ***
+--Afficher le nombre de trajets réservés complets effectués dans un véhicule fumeur selon la ville de départ et la ville d'arrivée
+select id_villeDep, id_villeArr, COUNT(num_trajets)
+from reservation, utilisateur
+where 	complet = '1',
+	and utilisateur.niv_fumeur = '1'
+group by id_villeDep, id_villeArr;
