@@ -101,11 +101,11 @@ VALUES (900, 565, 1, 3, 907, 5, 8, 1, 2, 18.90, 37.80);
 -- VALUES ();
 
 
--- /****************************************************
--- REQUETE 3: nombre de vente de tickets de bus par jour
--- *****************************************************/
+-- /******************************************************************
+-- REQUETE 3: nombre de vente de tickets de bus par jour et prix total
+-- *******************************************************************/
 
-SELECT d.fullDate, SUM(nombrePlace) 
+SELECT d.fullDate, SUM(nombrePlace) as placeVendue, SUM(prixTotal) as prixTotal
 FROM reservation r, date_dim d
 WHERE r.id_conducteur = 10
 	AND r.id_dateResa = d.id
