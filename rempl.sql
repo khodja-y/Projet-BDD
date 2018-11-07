@@ -62,7 +62,7 @@ VALUES (8, 'LEMOINE', 'THIBAUT', 'LT', 1993, 'M', 'expert', 1, 1, 2, 2);
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
 VALUES (9, 'MANTOVAN', 'ELENA', 'ME', 1987, 'F', 'debutant', 2, 0, 1, 0);
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (10, 'RYDH', 'DAVID', 'AL', 1986, 'F', 'debutant', 0, 1, 1, 1);
+VALUES (10, 'OUI', 'BUS', 'OUIBUS', 2012, 'F', 'ambassadeur', 1, 0, 0, 1);
 
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region)
 VALUES (1, 'Montpellier', 56.88, 277639, 34, 'Occitanie');
@@ -80,18 +80,33 @@ VALUES (5, 'Toulouse', 118.30, 471941, 31, 'Occitanie');
 -- **************************/
 
 INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, nombrePlace, prixPlace, prixTotal)
-VALUES ();
+VALUES (900, 450, 1, 4, 901, 8, 10, 1, 1, 35.90, 35.90);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, nombrePlace, prixPlace, prixTotal)
+VALUES (904, 565, 1, 3, 905, 5, 10, 1, 2, 18.90, 37.80);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, nombrePlace, prixPlace, prixTotal)
+VALUES (900, 565, 1, 3, 907, 5, 8, 1, 2, 18.90, 37.80);
 
 -- /*************************
 -- PROPOSITION FACT INSERTION
 -- **************************/
 
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr)
-VALUES ();
+-- INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr)
+-- VALUES ();
 
 -- /***********************
 -- RECHERCHE FACT INSERTION
 -- ************************/
 
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur)
-VALUES ();
+-- INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur)
+-- VALUES ();
+
+
+-- /****************************************************
+-- REQUETE 3: nombre de vente de tickets de bus par jour
+-- *****************************************************/
+
+SELECT d.fullDate, SUM(nombrePlace) 
+FROM reservation r, date_dim d
+WHERE r.id_conducteur = 10
+	AND r.id_dateResa = d.id
+GROUP BY d.fullDate;

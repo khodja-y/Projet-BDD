@@ -39,8 +39,6 @@ CREATE TABLE utilisateur_dim (
 	niv_fumeur     NUMBER(1,0),
 	niv_animaux    NUMBER(1,0),
 	niv_musique    NUMBER(1,0),
-	cadeau         VARCHAR(10) NULL,
-	CONSTRAINT cadeau_check CHECK (cadeau IN ('CARBURANT','LAVAGE',NULL)),
 	CONSTRAINT utilisateur_dimension_pk PRIMARY KEY (id)
 );
 
@@ -64,11 +62,8 @@ CREATE TABLE reservation (
 	id_conducteur NUMBER(5,0) NOT NULL,
 	num_trajet    NUMBER(5,0) NOT NULL,
 	nombrePlace   NUMBER(2,0) NOT NULL,
-	complet       NUMBER(1,0) NOT NULL,
-	deux_places_arr NUMBER(1,0) NOT NULL,
-	only_girls    NUMBER(1,0) NOT NULL,
-	prixPlace     NUMBER(3,2) NOT NULL,
-	prixTotal     NUMBER(4,2) NOT NULL,
+	prixPlace     NUMBER(4,2) NOT NULL,
+	prixTotal     NUMBER(5,2) NOT NULL,
 	CONSTRAINT reservation_dateResa_fk   FOREIGN KEY (id_dateResa)   REFERENCES date_dim(id),
 	CONSTRAINT reservation_heureResa_fk  FOREIGN KEY (id_heureResa)  REFERENCES time_dim(id),
 	CONSTRAINT reservation_villeDep_fk   FOREIGN KEY (id_villeDep)   REFERENCES ville_dim(id),
