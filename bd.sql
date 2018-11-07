@@ -39,6 +39,8 @@ CREATE TABLE utilisateur_dim (
 	niv_fumeur     NUMBER(1,0),
 	niv_animaux    NUMBER(1,0),
 	niv_musique    NUMBER(1,0),
+	cadeau         VARCHAR(10) NULL,
+	CONSTRAINT cadeau_check CHECK (cadeau IN ('CARBURANT','LAVAGE')),
 	CONSTRAINT utilisateur_dimension_pk PRIMARY KEY (id)
 );
 
