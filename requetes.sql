@@ -54,3 +54,13 @@ from reservation, utilisateur
 where 	complet = '1',
 	and utilisateur.niv_fumeur = '1'
 group by id_villeDep, id_villeArr;
+
+
+-- requête 3:
+-- Nombre de places vendues et prix total des réservations avec Ouibus par jour  
+
+SELECT d.fullDate, SUM(nombrePlace) as placeVendue, SUM(prixTotal) as prixTotal
+FROM reservation r, date_dim d
+WHERE r.id_conducteur = 10
+	AND r.id_dateResa = d.id
+GROUP BY d.fullDate;
