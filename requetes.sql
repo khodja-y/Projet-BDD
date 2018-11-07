@@ -24,7 +24,15 @@ FROM utilisateur,proposition
 WHERE 		utilisateur1.cadeau='LAVAGE'
 	AND	utilisateur2.cadeau='CARBURANT'
 	AND	utilisateur1.id=proposition.id_conducteur
-	AND  	utilisateur2.id=proposition.id_conducteur;	
+	AND  	utilisateur2.id=proposition.id_conducteur;
+	
+--2eme solution plus correcte
+SELECT *
+FROM (SELECT count(utilisateur_dim.id) as nbr_lavage
+      FROM utilisateur_dim
+      WHERE cadeau = 'LAVAGE' ) as LAVAGE, (SELECT count(utilisateur_dim.id) as nbr_carburant
+                                 FROM utilisateur_dim
+                                 WHERE cadeau = 'CARBURANT' ) as CARBURANT;
 
 --requête 2:
 -- Afficher le nombre de trajets réservés ayant le prix minimum en effectuant un group by sur la ville de départ et la ville de destination.
