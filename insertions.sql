@@ -1,3 +1,8 @@
+
+-- *******************************************************************************
+-- Création de la dimension date avec un stockage de la date sur 3 ans depuis 2017 
+-- *******************************************************************************
+
 INSERT INTO date_dim (id, fullDate, day, month, monthNum, year)
 SELECT n,
 	TO_DATE('31/12/2016','DD/MM/YYYY') + NUMTODSINTERVAL(n,'day'),
@@ -10,6 +15,10 @@ FROM (
 	FROM dual
 	connect by level <= 365 * 3
 );
+
+-- ***********************************!*************************************************
+-- Création de la dimension temps avec un stockage de toutes les minutes sur une journée 
+-- *************************************************************************************
 
 INSERT INTO time_dim (id, timeFull, timeFull24, heure, heure24, minute, am_pm)
 SELECT n as id,
@@ -24,57 +33,12 @@ FROM (
 	FROM dual
 	connect by level <= 1440
 );
+ 
+-- **************************
+-- UTILISATEUR DIM INSERTION
+-- **************************
 
 
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (1, 'reserve', 0, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (2, 'reserve', 0, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (3, 'reserve', 1, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (4, 'reserve', 1, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (5, 'confirme', 0, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (6, 'confirme', 0, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (7, 'confirme', 1, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (8, 'confirme', 1, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (9, 'annule', 0, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (10, 'annule', 0, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (11, 'annule', 1, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (12, 'annule', 1, 1);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (1, 18, 736, 10, 28, 1);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (23, 25, 1000, 45, 78, 17);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (5, 26, 1211, 65, 45, 2);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (26, 31, 789, 54, 65, 15);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (41, 46, 555, 19, 25, 5);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (45, 46, 870, 12, 13, 10);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (46, 48, 736, 59, 69, 6);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (46, 49, 120, 36, 43, 7);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (56, 60, 600, 1, 5, 1);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (56, 60, 665, 89, 74, 9);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (63, 65, 785, 12, 65, 17);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (65, 84, 265, 95, 45, 8);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (87, 90, 991, 25, 42, 4);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (90, 91, 1021, 42, 78, 3);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (78, 96, 1021, 42, 35, 2);
-INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (90, 98, 991, 78, 35, 4);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1, 18, 780, 10, 28, 9);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1, 18, 500, 10, 28, 13);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (5, 26, 250, 65, 45, 15);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (222, 224, 1020, 78, 96, 16);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (475, 478, 265, 73, 15, 16);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (566, 568, 1000, 45, 97, 16);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (658, 660, 985, 82, 85, 3);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1000, 1001, 500, 1, 10, 1);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1050, 1050, 999, 36, 54, 19);
-INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1080, 1085, 982, 24, 45, 9);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (17, 600, 10, 28, 18, 2, 1, 1, 1, 2, 12, 24);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (17, 800, 10, 28, 18, 19, 1, 1, 1, 1, 12, 12);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (24, 500, 45, 78, 25, 1, 17, 5, 2, 1, 15, 15);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (25, 450, 45, 78, 25, 2, 17, 5, 2, 2, 15, 30);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (25, 900, 65, 45, 26, 6, 2, 4, 3, 2, 10, 20);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (30, 650, 54, 65, 31, 4, 15, 9, 4, 1, 45, 45);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (30, 895, 54, 65, 31, 5, 15, 9, 4, 2, 45, 90);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (45, 350, 19, 25, 46, 1, 5, 2, 5, 1, 17, 17);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (45, 480, 19, 25, 46, 8, 5, 2, 5, 1, 17, 17);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (46, 400, 19, 25, 46, 19, 5, 2, 5, 1, 17, 17);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (46, 557, 12, 13, 46, 3, 10, 2, 6, 2, 13, 26);
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique, cadeau) VALUES (1, 'ALLON', 'LEVY', 'AL', '1986', 'F', 'debutant', 2, 0, 1, 2, 'LAVAGE');
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique, cadeau) VALUES (2, 'BACARD', 'HUGO', 'BH', '1966', 'M', 'expert', 2, 1, 2, 2, 'LAVAGE');
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique, cadeau) VALUES (3, 'CEBALLOS', 'CESAR', 'CC', '1991', 'F', 'confirme', 1, 0, 1, 1, 'LAVAGE');
@@ -94,6 +58,14 @@ INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, stat
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique, cadeau) VALUES (17, 'OUIBUS', 'OUIBUS', 'OB', '0000', null, null, 0, 0, 0, 0, null);
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique, cadeau) VALUES (18, 'AISSAOUI', 'SALEH', 'AS', '1995', 'F', 'debutant', 1, 0, 2, 2, null);
 INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique, cadeau) VALUES (19, 'EMILE', 'YOUSSEF', 'EY', '1994', 'H', 'ambassadeur', 1, 2, 1, 1, null);
+
+
+
+-- **************************
+--    VILLE DIM INSERTION
+-- **************************
+
+
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region, pays) VALUES (1, 'Montpellier', 57, 277639, 34, 'Occitanie', 'France');
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region, pays) VALUES (2, 'Paris', 105, 2206488, 75, 'Ile-de-France', 'France');
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region, pays) VALUES (3, 'Marseille', 241, 861635, 13, 'Provence-Alpes-Cote d''Azu', 'France');
@@ -194,3 +166,76 @@ INSERT INTO ville_dim (id, nom, superficie, population, departement, region, pay
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region, pays) VALUES (98, 'Maisons-Alfort', 5.35, 52619, 94, 'Ile-de-France', 'France');
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region, pays) VALUES (99, 'Bondy', 5.47, 53448, 93, 'Ile-de-France', 'France');
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region, pays) VALUES (100, 'Evry', 8.33, 52403, 91, 'Ile-de-France', 'France');
+
+
+-- ******************
+-- JUNK DIM INSERTION
+-- ******************
+
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (1, 'reserve', 0, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (2, 'reserve', 0, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (3, 'reserve', 1, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (4, 'reserve', 1, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (5, 'confirme', 0, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (6, 'confirme', 0, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (7, 'confirme', 1, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (8, 'confirme', 1, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (9, 'annule', 0, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (10, 'annule', 0, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (11, 'annule', 1, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (12, 'annule', 1, 1);
+
+-- **************************
+-- RESERVATION FACT INSERTION
+-- **************************
+
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (17, 600, 10, 28, 18, 2, 1, 1, 1, 2, 12, 24);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (17, 800, 10, 28, 18, 19, 1, 1, 1, 1, 12, 12);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (24, 500, 45, 78, 25, 1, 17, 5, 2, 1, 15, 15);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (25, 450, 45, 78, 25, 2, 17, 5, 2, 2, 15, 30);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (25, 900, 65, 45, 26, 6, 2, 4, 3, 2, 10, 20);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (30, 650, 54, 65, 31, 4, 15, 9, 4, 1, 45, 45);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (30, 895, 54, 65, 31, 5, 15, 9, 4, 2, 45, 90);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (45, 350, 19, 25, 46, 1, 5, 2, 5, 1, 17, 17);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (45, 480, 19, 25, 46, 8, 5, 2, 5, 1, 17, 17);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (46, 400, 19, 25, 46, 19, 5, 2, 5, 1, 17, 17);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, id_junk, num_trajet, nombrePlace, prixPlace, prixTotal) VALUES (46, 557, 12, 13, 46, 3, 10, 2, 6, 2, 13, 26);
+
+
+
+-- **************************
+-- PROPOSITION FACT INSERTION
+-- **************************
+
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (1, 18, 736, 10, 28, 1);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (23, 25, 1000, 45, 78, 17);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (5, 26, 1211, 65, 45, 2);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (26, 31, 789, 54, 65, 15);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (41, 46, 555, 19, 25, 5);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (45, 46, 870, 12, 13, 10);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (46, 48, 736, 59, 69, 6);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (46, 49, 120, 36, 43, 7);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (56, 60, 600, 1, 5, 1);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (56, 60, 665, 89, 74, 9);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (63, 65, 785, 12, 65, 17);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (65, 84, 265, 95, 45, 8);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (87, 90, 991, 25, 42, 4);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (90, 91, 1021, 42, 78, 3);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (78, 96, 1021, 42, 35, 2);
+INSERT INTO proposition (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_conducteur) VALUES (90, 98, 991, 78, 35, 4);
+
+-- ************************
+-- RECHERCHE FACT INSERTION
+-- ************************
+
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1, 18, 780, 10, 28, 9);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1, 18, 500, 10, 28, 13);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (5, 26, 250, 65, 45, 15);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (222, 224, 1020, 78, 96, 16);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (475, 478, 265, 73, 15, 16);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (566, 568, 1000, 45, 97, 16);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (658, 660, 985, 82, 85, 3);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1000, 1001, 500, 1, 10, 1);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1050, 1050, 999, 36, 54, 19);
+INSERT INTO recherche (id_date, id_dateDep, id_heureDep, id_villeDep, id_villeArr, id_utilisateur) VALUES (1080, 1085, 982, 24, 45, 9);
+
