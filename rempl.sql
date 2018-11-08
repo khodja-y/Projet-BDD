@@ -43,32 +43,32 @@ FROM (
 -- faites les insertions additionnelles nécessaires à vos requêtes ça sera mieux
 -- *****************************************************************************
 
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (1, 'ALLON', 'LEVY', 'AL', 1986, 'F', 'debutant', 2, 0, 1, 2);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (2, 'BACARD', 'HUGO', 'BH', 1966, 'M', 'expert', 2, 1, 2, 2);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (3, 'CEBALLOS', 'CESAR', 'CC', 1991, 'F', 'confirme', 1, 0, 1, 1);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (4, 'DOCOMPO', 'ROI', 'DR', 1985, 'M', 'ambassadeur', 2, 0, 1, 0);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (5, 'ERIKSON', 'DENIS', 'ED', 1978, 'H', 'debutant', 1, 1, 0, 2);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (6, 'HERBLOT', 'MATHILDE', 'HM', 1982, 'F', 'confirme', 2, 0, 1, 2);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (7, 'KOOL', 'JANNE', 'KJ', 1979, 'F', 'confirme', 2, 0, 2, 2);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (8, 'LEMOINE', 'THIBAUT', 'LT', 1993, 'M', 'expert', 1, 1, 2, 2);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (9, 'MANTOVAN', 'ELENA', 'ME', 1987, 'F', 'debutant', 2, 0, 1, 0);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (10, 'OUI', 'BUS', 'OUIBUS', 2012, 'F', 'ambassadeur', 1, 0, 0, 1);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (11, 'ELHADI', 'SALAH', 'DI', 1995, 'H', 'debutant', 1, 1, 0, 1);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (12, 'CLAUDE', 'LAURENT', 'CL', 1980, 'H', 'habitue', 0, 1, 0, 1);
-INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
-VALUES (13, 'JULIE-ANNE', 'LIEVRE', 'JA', 1988, 'F', 'ambassadeur', 2, 0, 0, 1);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (1, 'ALLON', 'LEVY', 'AL', 1986, 'F', 'debutant', NULL, 2, 0, 1, 2);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (2, 'BACARD', 'HUGO', 'BH', 1966, 'M', 'expert', NULL, 2, 1, 2, 2);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (3, 'CEBALLOS', 'CESAR', 'CC', 1991, 'F', 'confirme', NULL, 1, 0, 1, 1);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (4, 'DOCOMPO', 'ROI', 'DR', 1985, 'M', 'ambassadeur', NULL, 2, 0, 1, 0);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (5, 'ERIKSON', 'DENIS', 'ED', 1978, 'H', 'debutant', NULL, 1, 1, 0, 2);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (6, 'HERBLOT', 'MATHILDE', 'HM', 1982, 'F', 'confirme', NULL, 2, 0, 1, 2);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (7, 'KOOL', 'JANNE', 'KJ', 1979, 'F', 'confirme', NULL, 2, 0, 2, 2);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (8, 'LEMOINE', 'THIBAUT', 'LT', 1993, 'M', 'expert', NULL, 1, 1, 2, 2);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (9, 'MANTOVAN', 'ELENA', 'ME', 1987, 'F', 'debutant', NULL, 2, 0, 1, 0);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (10, 'OUI', 'BUS', 'OUIBUS', 2012, 'F', 'ambassadeur', NULL, 1, 0, 0, 1);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (11, 'ELHADI', 'SALAH', 'DI', 1995, 'H', 'debutant', NULL, 1, 1, 0, 1);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (12, 'CLAUDE', 'LAURENT', 'CL', 1980, 'H', 'habitue', NULL, 0, 1, 0, 1);
+INSERT INTO utilisateur_dim (id, nom, prenom, pseudo, anneeNaissance, sexe, statue, cadeau, niv_bavard, niv_fumeur, niv_animaux, niv_musique)
+VALUES (13, 'JULIE-ANNE', 'LIEVRE', 'JA', 1988, 'F', 'ambassadeur', NULL, 2, 0, 0, 1);
 
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region)
 VALUES (1, 'Montpellier', 56.88, 277639, 34, 'Occitanie');
@@ -152,3 +152,5 @@ FROM reservation r, date_dim d
 WHERE r.id_conducteur = 10
 	AND r.id_dateResa = d.id
 GROUP BY CUBE(d.month, d.fullDate);
+
+ 

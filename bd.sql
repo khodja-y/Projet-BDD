@@ -36,6 +36,7 @@ CREATE TABLE utilisateur_dim (
 	anneeNaissance CHAR(4),
 	sexe           CHAR(1),
 	statue         VARCHAR2(15),
+	cadeau		   VARCHAR2(15),
 	niv_bavard     NUMBER(1,0),
 	niv_fumeur     NUMBER(1,0),
 	niv_animaux    NUMBER(1,0),
