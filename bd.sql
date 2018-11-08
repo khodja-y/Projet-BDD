@@ -57,7 +57,7 @@ CREATE TABLE ville_dim (
 
 CREATE TABLE junk_dim (
 	id         NUMBER(5,0),
-	statue     VARCHAR2(10),
+	statut     VARCHAR2(10),
 	deuxPlaces NUMBER(1,0),
 	onlyGirls  NUMBER(1,0),
 	CONSTRAINT junk_dimension_pk PRIMARY KEY (id)
