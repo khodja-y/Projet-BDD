@@ -5,6 +5,7 @@ DROP TABLE date_dim;
 DROP TABLE time_dim;
 DROP TABLE utilisateur_dim;
 DROP TABLE ville_dim;
+DROP TABLE junk_dim;
 
 CREATE TABLE date_dim (
 	id       NUMBER(5,0),
@@ -52,6 +53,14 @@ CREATE TABLE ville_dim (
 	CONSTRAINT ville_dimension_pk PRIMARY KEY (id)
 );
 
+CREATE TABLE junk_dim (
+	id         NUMBER(5,0),
+	statue     VARCHAR2(10),
+	deuxPlaces NUMBER(1,0),
+	onlyGirls  NUMBER(1,0),
+	CONSTRAINT junk_dimension_pk PRIMARY KEY (id)
+);
+
 CREATE TABLE reservation (
 	id_dateResa   NUMBER(5,0) NOT NULL,
 	id_heureResa  NUMBER(5,0) NOT NULL,
@@ -61,12 +70,10 @@ CREATE TABLE reservation (
 	id_passager   NUMBER(5,0) NOT NULL,
 	id_conducteur NUMBER(5,0) NOT NULL,
 	num_trajet    NUMBER(5,0) NOT NULL,
+	id_junk       NUMBER(5,0) NOT NULL,
 	nombrePlace   NUMBER(2,0) NOT NULL,
-	complet       NUMBER(1,0) NOT NULL,
-	deux_places   NUMBER(1,0) NOT NULL,
-	only_girls    NUMBER(1,0) NOT NULL,	
 	prixPlace     NUMBER(4,2) NOT NULL,
-	prixTotal     NUMBER(5,2) NOT NULL,
+	prixTotal     NUMBER(5,2),
 	CONSTRAINT reservation_dateResa_fk   FOREIGN KEY (id_dateResa)   REFERENCES date_dim(id),
 	CONSTRAINT reservation_heureResa_fk  FOREIGN KEY (id_heureResa)  REFERENCES time_dim(id),
 	CONSTRAINT reservation_villeDep_fk   FOREIGN KEY (id_villeDep)   REFERENCES ville_dim(id),
@@ -100,19 +107,21 @@ CREATE TABLE proposition (
 	CONSTRAINT proposition_conducteur_fk FOREIGN KEY (id_conducteur) REFERENCES utilisateur_dim(id),
 	CONSTRAINT proposition_fait_pk PRIMARY KEY (
 		id_date,
+		id_dateDep,
 		id_villeDep,
 		id_villeArr,
 		id_conducteur,
 		id_heureDep)
 );
 
+-- id_utilisateur à 99999 pour les utilisateurs anonymes qui font des recherches sur le site
 CREATE TABLE recherche (
 	id_date        NUMBER(5,0) NOT NULL,
 	id_dateDep     NUMBER(5,0) NOT NULL,
 	id_heureDep    NUMBER(5,0) NOT NULL,
 	id_villeDep    NUMBER(5,0) NOT NULL,
 	id_villeArr    NUMBER(5,0) NOT NULL,
-	id_utilisateur NUMBER(5,0) NOT NULL,
+	id_utilisateur NUMBER(5,0) DEFAULT 99999, 
 	CONSTRAINT recherche_date_fk        FOREIGN KEY (id_date)        REFERENCES date_dim(id),
 	CONSTRAINT recherche_dateDep_fk     FOREIGN KEY (id_dateDep)     REFERENCES date_dim(id),
 	CONSTRAINT recherche_heureDep_fk    FOREIGN KEY (id_heureDep)    REFERENCES time_dim(id),

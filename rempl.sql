@@ -81,16 +81,44 @@ VALUES (4, 'Lyon', 47.87, 513275, 69, 'Auvergne-Rhone-Alpes');
 INSERT INTO ville_dim (id, nom, superficie, population, departement, region)
 VALUES (5, 'Toulouse', 118.30, 471941, 31, 'Occitanie');
 
+-- ******************
+-- JUNK DIM INSERTION
+-- ******************
+
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (1, 'reserve', 0, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (2, 'reserve', 0, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (3, 'reserve', 1, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (4, 'reserve', 1, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (5, 'confirme', 0, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (6, 'confirme', 0, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (7, 'confirme', 1, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (8, 'confirme', 1, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (9, 'annule', 0, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (10, 'annule', 0, 1);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (11, 'annule', 1, 0);
+INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (12, 'annule', 1, 1);
+
 -- **************************
 -- RESERVATION FACT INSERTION
 -- **************************
 
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, nombrePlace, prixPlace, prixTotal)
-VALUES (900, 450, 1, 4, 901, 8, 10, 1, 1, 35.90, 35.90);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, nombrePlace, prixPlace, prixTotal)
-VALUES (904, 565, 1, 3, 905, 5, 10, 1, 2, 18.90, 37.80);
-INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, nombrePlace, prixPlace, prixTotal)
-VALUES (900, 565, 1, 3, 907, 5, 8, 1, 2, 18.90, 37.80);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, id_junk, nombrePlace, prixPlace)
+VALUES (900, 450, 1, 4, 901, 8, 10, 1, 1, 1, 35.90);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, id_junk, nombrePlace, prixPlace)
+VALUES (904, 565, 1, 3, 905, 5, 10, 3, 2, 2, 18.90);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, id_junk, nombrePlace, prixPlace)
+VALUES (926, 509, 2, 5, 930, 2, 6, 1, 3, 1, 14.60);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, id_junk, nombrePlace, prixPlace)
+VALUES (906, 632, 4, 1, 913, 5, 8, 2, 3, 3, 13.60);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, id_junk, nombrePlace, prixPlace)
+VALUES (947, 611, 3, 2, 947, 2, 12, 4, 3, 1, 15.90);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, id_junk, nombrePlace, prixPlace)
+VALUES (981, 546, 1, 4, 987, 1, 5, 5, 4, 2, 18.90);
+INSERT INTO reservation (id_dateResa, id_heureResa, id_villeDep, id_villeArr, id_dateDep, id_passager, id_conducteur, num_trajet, id_junk, nombrePlace, prixPlace)
+VALUES (906, 579, 2, 2, 913, 6, 8, 2, 3, 1, 11.90);
+
+UPDATE reservation 
+SET prixTotal = (nombrePlace * prixPlace);
 
 -- **************************
 -- PROPOSITION FACT INSERTION
@@ -115,4 +143,12 @@ SELECT d.fullDate, SUM(nombrePlace) as placeVendue, SUM(prixTotal) as prixTotal
 FROM reservation r, date_dim d
 WHERE r.id_conducteur = 10
 	AND r.id_dateResa = d.id
-GROUP BY d.fullDate;
+GROUP BY CUBE(d.fullDate);
+
+-- EXEMPLE AVEC CUBE !
+
+SELECT d.month, d.fullDate, SUM(nombrePlace) as placeVendue, SUM(prixTotal) as prixTotal
+FROM reservation r, date_dim d
+WHERE r.id_conducteur = 10
+	AND r.id_dateResa = d.id
+GROUP BY CUBE(d.month, d.fullDate);
