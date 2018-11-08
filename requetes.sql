@@ -1,73 +1,124 @@
---Requête 4: 
---Afficher le nombre de trajets proposés en effectuant un 
---group by sur la ville de départ et la ville de destination,
---et le comparer au nombre de trajets rechercher 
---selon la même ville de départ et de destination.
-
---on a besoin d'une dimensions dégénrées dans les tables de fait pour cette requete comme "numéro de recherche"
-
-
-CREATE MATERIALIZED VIEW MV4
-AS SELECT 	vd1.nom,vd2.nom,
-		COUNT(proposition.id_date||proposition.id_dateDep||proposition.id_heureDep||proposition.id_villeDep||proposition.id_villeArr||proposition.id_conducteur) AS nbr_trajets_prop,
-		COUNT(recherche.id_date||recherche.id_dateDep||recherche.id_heureDep||recherche.id_villeDep||recherche.id_villeArr||recherche.id_utilisateur) AS nbr_trajets_rech
-FROM        ville_dim vd1,ville_dim vd2,recherche,proposition 
-WHERE 		vd1.id=recherche.id_villeDep
-	AND 	vd2.id=recherche.id_villeArr
-	AND	    vd1.id=proposition.id_villeDep
-	AND 	vd2.id=proposition.id_villeArr	
-GROUP BY vd1.nom,vd2.nom;
-
-
---Requête 6: Afficher le nombre de cartes carburant et 
---le nombre de cartes lavage prises par les utilisateurs 
---ayant proposés un premier trajet et comparer les deux nombres.
-
-CREATE MATERIALIZED VIEW MV6
-AS SELECT COUNT(u1.cadeau) AS LAVAGE,COUNT(u2.cadeau) AS CARBURANT
-FROM    utilisateur_dim u1,utilisateur_dim u2,proposition
-WHERE 	u1.cadeau='LAVAGE'
-	AND	u2.cadeau='CARBURANT'
-	AND	u1.id=proposition.id_conducteur
-	AND u2.id=proposition.id_conducteur;
---2eme solution plus correcte
-CREATE MATERIALIZED VIEW MV6
-AS SELECT *
-FROM (SELECT count(utilisateur_dim.id) as nbr_lavage
-      FROM utilisateur_dim
-      WHERE cadeau = 'LAVAGE' ), (SELECT count(utilisateur_dim.id) as nbr_carburant
-                                 FROM utilisateur_dim
-                                 WHERE cadeau = 'CARBURANT' );
-
---requête 2:
--- Afficher le nombre de trajets réservés ayant le prix minimum en effectuant un group by sur la ville de départ et la ville de destination.
-CREATE MATERIALIZED VIEW MV2
-AS select id_villeDep, id_villeArr, MIN(prix_place)
-    from reservation
-    group by id_villeDep,id_villeArr;
-    
---requête 8:
---Afficher le nombre de trajets réservés complets selon la ville de départ et ville d'arrivée
-CREATE MATERIALIZED VIEW MV8
-AS select id_villeDep, id_villeArr, COUNT(num_trajet)
+--Requête1:
+--Afficher le nombre de trajets réservés en effectuant un group by
+ --sur la ville de départ et la ville de destination
+select id_villeDep, id_villeArr, count(num_trajet) 
 from reservation
-where complet = '1'
-group by id_villeDep, id_villeArr;
+group by id_villeDep,id_villeArr; 
 
---requête ***
---Afficher le nombre de trajets réservés complets effectués dans un véhicule fumeur selon la ville de départ et la ville d'arrivée
-select id_villeDep, id_villeArr, COUNT(num_trajets)
+--Requête2:
+--Afficher le nombre de trajets réservés ayant le prix minimum en effectuant un 
+--group by sur la ville de départ et la ville de destination
+
+select id_villeDep, id_villeArr, MIN(prixPlace)
+from reservation
+group by id_villeDep,id_villeArr;
+
+
+--Requête3:
+--Nombre de places vendues et prix total 
+--des réservations avec Ouibus par jour
+
+select d.fullDate, sum(nombrePlace) as placeVendue, sum(prixTotal) as prixTotal
+from reservation r, date_dim d
+where r.id_conducteur = 10
+and r.id_dateResa = d.id
+group by d.fullDate;
+    
+
+--Requête 4: 
+--Afficher le nombre de trajets proposés, le nombre de trajets recherchés et le rapport entre les deux en pourcentages 
+--à la même date selon la ville de départ et la ville de destination
+
+select p.id_dateDep, p.id_villeDep, p.id_villeArr,
+	(select count(*) FROM proposition p2
+    where p.id_dateDep = p2.id_dateDep
+          and p.id_villeDep = p2.id_villeDep
+          and p.id_villeArr = p2.id_villeArr ) as nbProp,
+    (select count(*) FROM recherche r2
+    where p.id_dateDep = r2.id_dateDep
+    and p.id_villeDep = r2.id_villeDep
+    and p.id_villeArr = r2.id_villeArr ) as nbRech,
+    (select ((nbProp / nbRech) * 100)) as satisfaction
+from proposition p, recherche r
+where p.id_dateDep = r.id_dateDep
+          and p.id_villeDep = r.id_villeDep
+          and p.id_villeArr = r.id_villeArr
+group by p.id_dateDep, p.id_villeDep, p.id_villeArr;
+    
+
+
+--Requête 5:
+--Afficher les trajets recherchés en effectuant un group by sur la ville de départ et la ville de destination qui n’ont 
+--jamais été proposés (Trajets recherchés - trajets proposés).
+select id_villeDep, id_villeArr
+from recherche 
+MINUS 
+(select id_villeDep, id_villeArr from proposition);
+
+--Requête 6: 
+--Afficher le rapport en pourcentages entre le nombre d'utilisateurs ayant 
+--pris une carte cadeau après leur premier trajet et le nombre d'utilisateurs 
+--ayant proposé un trajet au minimum et comparer les deux nombres
+select *
+    from(select 
+        ((select count(DISTINCT id_conducteur) AS nbr_lavage
+        from utilisateur_dim, proposition
+        where id_conducteur = utilisateur_dim.id 
+              and utilisateur_dim.cadeau = 'LAVAGE')
+        /(select count(distinct id_conducteur) 
+         from proposition) * 100) as pourcentage_lavage) 
+         as LAVAGE,
+         (select ((select count(distinct id_conducteur) 
+         as nbr_carburant
+         from utilisateur_dim, proposition
+         where id_conducteur = utilisateur_dim.id 
+         and utilisateur_dim.cadeau = 'CARBURANT')
+         /(select count(distinct id_conducteur) 
+         from proposition) 
+         * 100) as pourcentage_carburant) as CARBURANT,
+         (select(
+         (select count(distinct id_conducteur) AS nbr_aucun
+         from utilisateur_dim, proposition
+         where id_conducteur = utilisateur_dim.id 
+         and utilisateur_dim.cadeau IS NULL ) 
+         /(select count(distinct id_conducteur) 
+         from proposition) 
+         * 100) as pourcentage_aucun) as AUCUN;
+
+--Requête 7:
+--Afficher le nombre de trajets réservés annulés selon 
+--la ville de départ et ville d'arrivée
+-- Afficher le nombre de trajets réservés ayant le prix minimum en effectuant un group by sur la ville de départ et la ville de destination.
+select id_villeDep, id_villeArr, count(num_trajet)
+from reservation
+where statut = '2'
+group by id_villeDep, id_villeArr;
+      
+
+
+--Requête 8:
+--Les utilisateurs réserve-t-il souvent des trajets fumeur?
+select id_villeDep, id_villeArr, count(num_trajets)
 from reservation, utilisateur
-where 	complet = '1',
-	and utilisateur.niv_fumeur = '1'
+where utilisateur.niv_fumeur = '1' 
+or utilisateur.niv_fumeur = '1'
 group by id_villeDep, id_villeArr;
 
+--Requête 9 :
+--Estimer le nombre de réservation faites par jour
+select date_dim.fullDate, reservation.id_villeDep,
+    reservation.id_villeArr
+from reservation, date_dim
+where reservation.id_dateResa=date_dim.id
+group by reservation.id_dateResa, id_villeDep, id_villeArr;
+        
 
--- requête 3:
--- Nombre de places vendues et prix total des réservations avec Ouibus par jour  
-CREATE MATERIALIZED VIEW MV3
-AS SELECT d.fullDate, SUM(nombrePlace) as placeVendue, SUM(prixTotal) as prixTotal
-FROM reservation r, date_dim d
-WHERE r.id_conducteur = 10
-	AND r.id_dateResa = d.id
-GROUP BY d.fullDate;
+--Requête 10:
+--Comparer le nombre de trajets fait que par des filles et les autres
+select id_villeDep, id_villeAr, count(num_trajet1)
+    , count(num_trajet2)
+from reservation num_trajet1, reservation num_trajet2, 
+         junk_dim
+where 		junk_dim.id = reservation.id_junk
+      and 	junk_dim.onlyGirls = '1'
+group by id_villeDep, id_villeAr;
