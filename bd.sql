@@ -51,6 +51,7 @@ CREATE TABLE ville_dim (
 	population  NUMBER(8,0),
 	departement NUMBER(3,0),
 	region      VARCHAR2(30),
+	pays		VARCHAR2(30),
 	CONSTRAINT ville_dimension_pk PRIMARY KEY (id)
 );
 
