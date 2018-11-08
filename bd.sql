@@ -7,7 +7,7 @@ DROP TABLE utilisateur_dim;
 DROP TABLE ville_dim;
 
 CREATE TABLE date_dim (
-	id       NUMBER,
+	id       NUMBER(5,0),
 	fullDate DATE,
 	day      VARCHAR2(2),
 	month    VARCHAR2(9),
@@ -53,15 +53,18 @@ CREATE TABLE ville_dim (
 );
 
 CREATE TABLE reservation (
-	id_dateResa   NUMBER NOT NULL,
+	id_dateResa   NUMBER(5,0) NOT NULL,
 	id_heureResa  NUMBER(5,0) NOT NULL,
 	id_villeDep   NUMBER(5,0) NOT NULL,
 	id_villeArr   NUMBER(5,0) NOT NULL,
-	id_dateDep    NUMBER NOT NULL,
+	id_dateDep    NUMBER(5,0) NOT NULL,
 	id_passager   NUMBER(5,0) NOT NULL,
 	id_conducteur NUMBER(5,0) NOT NULL,
 	num_trajet    NUMBER(5,0) NOT NULL,
 	nombrePlace   NUMBER(2,0) NOT NULL,
+	complet       NUMBER(1,0) NOT NULL,
+	deux_places   NUMBER(1,0) NOT NULL,
+	only_girls    NUMBER(1,0) NOT NULL,	
 	prixPlace     NUMBER(4,2) NOT NULL,
 	prixTotal     NUMBER(5,2) NOT NULL,
 	CONSTRAINT reservation_dateResa_fk   FOREIGN KEY (id_dateResa)   REFERENCES date_dim(id),
@@ -83,8 +86,8 @@ CREATE TABLE reservation (
 );
 
 CREATE TABLE proposition (
-	id_date       NUMBER NOT NULL,
-	id_dateDep    NUMBER NOT NULL,
+	id_date       NUMBER(5,0) NOT NULL,
+	id_dateDep    NUMBER(5,0) NOT NULL,
 	id_heureDep   NUMBER(5,0) NOT NULL,
 	id_villeDep   NUMBER(5,0) NOT NULL,
 	id_villeArr   NUMBER(5,0) NOT NULL,
@@ -104,8 +107,8 @@ CREATE TABLE proposition (
 );
 
 CREATE TABLE recherche (
-	id_date        NUMBER NOT NULL,
-	id_dateDep     NUMBER NOT NULL,
+	id_date        NUMBER(5,0) NOT NULL,
+	id_dateDep     NUMBER(5,0) NOT NULL,
 	id_heureDep    NUMBER(5,0) NOT NULL,
 	id_villeDep    NUMBER(5,0) NOT NULL,
 	id_villeArr    NUMBER(5,0) NOT NULL,
