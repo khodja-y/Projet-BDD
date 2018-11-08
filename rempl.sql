@@ -85,19 +85,18 @@ VALUES (5, 'Toulouse', 118.30, 471941, 31, 'Occitanie');
 -- JUNK DIM INSERTION
 -- ******************
 
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (1, 'reserve', 0, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (2, 'reserve', 0, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (3, 'reserve', 1, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (4, 'reserve', 1, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (5, 'confirme', 0, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (6, 'confirme', 0, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (7, 'confirme', 1, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (8, 'confirme', 1, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (9, 'annule', 0, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (10, 'annule', 0, 1);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (11, 'annule', 1, 0);
-INSERT INTO junk_dim (id, statue, deuxPlaces, onlyGirls) VALUES (12, 'annule', 1, 1);
-
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (1, 'reserve', 0, 0);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (2, 'reserve', 0, 1);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (3, 'reserve', 1, 0);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (4, 'reserve', 1, 1);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (5, 'confirme', 0, 0);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (6, 'confirme', 0, 1);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (7, 'confirme', 1, 0);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (8, 'confirme', 1, 1);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (9, 'annule', 0, 0);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (10, 'annule', 0, 1);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (11, 'annule', 1, 0);
+INSERT INTO junk_dim (id, statut, deuxPlaces, onlyGirls) VALUES (12, 'annule', 1, 1);
 -- **************************
 -- RESERVATION FACT INSERTION
 -- **************************
